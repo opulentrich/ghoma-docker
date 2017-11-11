@@ -12,3 +12,6 @@ Transform for openhab in openhab-transforms/
 
 If you want to build the container, then :-
 docker build -t ghoma-proxy:latest .
+
+Example openhab item with the new transform:
+Switch GHoma1 "G-Homa Socket 1" { http=">[ON:GET:http://192.168.201.1:3000/on/621394] >[OFF:GET:http://192.168.201.1:3000/off/621394] <[http://192.168.201.1:3000/state/621394:10000:JS(ghoma.js)]" }
