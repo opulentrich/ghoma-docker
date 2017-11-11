@@ -5,9 +5,10 @@ https://community.openhab.org/t/g-homa-wifi-smart-socket-emw302wf-and-emw302wfo-
 
 Quickstart commands:
 
-docker build -t ghoma-proxy:latest .
-docker run -d -p 3001:3000 -p 4196:4196 -n ghoma-proxy ghoma-proxy:latest
-
+docker run -d -p 3001:3000 -p 4196:4196 -n ghoma-proxy opulentrich/ghoma-proxy
 docker exec ghoma-proxy nodejs /node_modules/ghoma/config.js ....
 
 Transform for openhab in openhab-transforms/
+
+If you want to build the container, then :-
+docker build -t ghoma-proxy:latest .
