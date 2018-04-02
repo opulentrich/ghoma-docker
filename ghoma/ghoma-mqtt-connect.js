@@ -17,7 +17,6 @@ var ghoma = require('./ghoma.js');
 var express = require('express');
 var app = express();
 var mqtt = require('mqtt')
-//var mqttclient  = mqtt.connect('mqtt://192.168.201.1', { username: 'overseer', password: 'overseer' } )
 var mqttclient  = mqtt.connect('mqtt://'+process.env.MQTT_SERVER, { username: process.env.MQTT_USERNAME, password: process.env.MQTT_PASSWORD } )
 
 // Uncomment this line to get a detailed log output
@@ -103,7 +102,6 @@ ghoma.onStatusChange = function(plug) {
 
 mqttclient.on('message', function (topic, message) {
   // message is Buffer
-  console.log(message.toString())
   var plug = ghoma.get(topic.toString().substr(6));
   if ( plug ) {
      if(message.toString() === 'ON')
