@@ -8,6 +8,15 @@ Quickstart commands:
 docker run -d -p 3000:3000 -p 4196:4196 -n ghoma-proxy opulentrich/ghoma-proxy
 docker exec ghoma-proxy nodejs /node_modules/ghoma/config.js ....
 
+Supports MQTT protocol using ENV vars:
+  MQTT_SERVER
+  MQTT_USERNAME
+  MQTT_PASSWORD
+
+Example item:
+Switch GHoma1 "G-Homa1" {mqtt=">[mosquitto:ghoma/621394:command:ON:ON],>[mosquitto:ghoma/621394:command:OFF:OFF],<[mosquitto:ghoma/621394:state:default"}
+
+
 Transform for openhab in openhab-transforms/
 
 If you want to build the container, then :-
