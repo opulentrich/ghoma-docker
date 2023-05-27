@@ -97,18 +97,23 @@ ghoma.onNew = function(plug) {
 
 ghoma.onStatusChange = function(plug) {
   console.log('New state of ' + plug.remoteAddress+' is '+plug.state+' triggered '+plug.triggered);
-  mqttclient.publish('ghoma/'+plug.id, plug.state.toUpperCase());
+  var options={ retain: true };
+  mqttclient.publish('ghoma/'+plug.id+'/state', plug.state.toUpperCase(), options);
 }
 
 mqttclient.on('message', function (topic, message) {
   // message is Buffer
-  var plug = ghoma.get(topic.toString().substr(6));
-  if ( plug ) {
-     if(message.toString() === 'ON')
-        plug.on();
-     if(message.toString() === 'OFF')
-        plug.off();
-  } 
+  var topic_parts = topic.toString().split('/');
+  if((topic_parts[0] === 'ghoma') && (topic_parts[2] === 'command')) {
+     var plug = ghoma.get(topic_parts[1]);
+     //var plug = ghoma.get(topic.toString().substr(6));
+     if ( plug ) {
+        if(message.toString() === 'ON')
+           plug.on();
+        if(message.toString() === 'OFF')
+           plug.off();
+     }
+  }
 });
 
 // Start the ghoma control server listening server on this port
